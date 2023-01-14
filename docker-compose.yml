@@ -12,6 +12,8 @@ services:
       - ./src/money-logger:/var/www/html
       - vendor-store:/var/www/html/vendor
       - node_modules-store:/var/www/html/node_modules
+      - ./docker/php/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     networks:
       - money-logger-network
       - proxy-network
