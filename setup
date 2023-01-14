@@ -6,7 +6,7 @@ function buildImage () {
   docker build -t $2 .
 }
 
-ROOT=`cd $(dirname $0); pwd`
+ROOT=$(cd $(dirname $0); pwd)
 
 DOCKER_ROOT="${ROOT}/docker"
 
@@ -23,20 +23,20 @@ do
   buildImage ${item[@]}
 done
 
-proxyDir="`dirname ${ROOT}`/proxy-network"
+proxyDir="$(dirname ${ROOT})/proxy-network"
 
 ls $proxyDir > /dev/null 2>&1
 
 if [ $? -ne 0 ];
 then
-  cd `dirname $ROOT`
+  cd $(dirname ${ROOT})
 
   git clone https://github.com/sayuprc/proxy-network.git
 
   cd $proxyDir
 
   ./setup
-if
+fi
 
 cd $ROOT
 
