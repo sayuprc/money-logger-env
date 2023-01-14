@@ -1,1 +1,1 @@
-CREATE DATABASE money-logger;
+CREATE DATABASE money_logger;
