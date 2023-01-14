@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  php:
+    image: money-logger
+    container_name: money-logger
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      CERT_NAME: ${CERT_NAME}
+      TZ: Asia/Tokyo
+    volumes:
+      - ./src/money-logger:/var/www/html
+      - vendor-store:/var/www/html/vendor
+      - node_modules-store:/var/www/html/node_modules
+    networks:
+      - money-logger-network
+      - proxy-network
+
+  postgresql:
+    image: money-logger-db
+    container_name: money-logger-db
+    volumes: 
+      - ./database/data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+    ports:
+      - ${DB_PORT}:5432
+    networks:
+      - money-logger-network
+
+networks:
+  money-logger-network:
+    name: money-logger-network
+  proxy-network:
+    external: true
+    name: proxy-network
+
+volumes:
+  vendor-store:
+  node_modules-store:

@@ -1,0 +1,54 @@
+#!/bin/bash
+
+function buildImage () {
+  cd $1
+
+  docker build -t $2 .
+}
+
+ROOT=`cd $(dirname $0); pwd`
+
+DOCKER_ROOT="${ROOT}/docker"
+
+## Build Docker images
+
+images=(
+  "${DOCKER_ROOT}/php money-logger"
+  "${DOCKER_ROOT}/postgresql money-logger-db"
+)
+
+for item in "${images[@]}";
+do
+  # イメージ作成
+  buildImage ${item[@]}
+done
+
+proxyDir="`dirname ${ROOT}`/proxy-network"
+
+ls $proxyDir > /dev/null 2>&1
+
+if [ $? -ne 0 ];
+then
+  cd `dirname $ROOT`
+
+  git clone https://github.com/sayuprc/proxy-network.git
+
+  cd $proxyDir
+
+  ./setup
+if
+
+cd $ROOT
+
+srcDir="${ROOT}/src"
+
+ls "${srcDir}/money-logger" > /dev/null 2>&1
+
+if [ $? -ne 0 ];
+then
+  cd $srcDir
+
+  git clone https://github.com/sayuprc/money-logger.git
+fi
+
+cp .env.example .env

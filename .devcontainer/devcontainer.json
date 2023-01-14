@@ -1,0 +1,31 @@
+{
+  "name": "money-logger",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "php",
+  "workspaceFolder": "/var/www/html",
+  "extensions": [
+    "bmewburn.vscode-intelephense-client",
+    "xdebug.php-debug",
+    "christian-kohler.path-intellisense",
+    "junstyle.php-cs-fixer",
+    "shufo.vscode-blade-formatter",
+    "onecentlin.laravel-blade",
+    "bradlc.vscode-tailwindcss"
+  ],
+  "settings": {
+    "[php]": {
+      "editor.formatOnSave": true,
+      "editor.insertSpaces": true,
+      "editor.tabSize": 4,
+      "editor.defaultFormatter": "junstyle.php-cs-fixer"
+    },
+    "php-cs-fixer.executablePath": "/var/www/html/vendor/bin/php-cs-fixer",
+    "[blade]": {
+      "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+    },
+    "bladeFormatter.format.sortTailwindcssClasses": true,
+    "bladeFormatter.format.wrapAttributes": "preserve"
+  }
+}
