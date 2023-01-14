@@ -51,4 +51,9 @@ then
   git clone https://github.com/sayuprc/money-logger.git
 fi
 
-cp .env.example .env
+cd $ROOT
+
+if [ ! -f "${ROOT/.env}" ];
+then
+  cp .env.example .env
+fi
