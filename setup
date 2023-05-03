@@ -1,12 +1,12 @@
 #!/bin/bash
 
 function buildImage () {
-  cd $1
+  cd "${1}"
 
-  docker build -t $2 .
+  docker build -t "${2}" .
 }
 
-ROOT=$(cd $(dirname $0); pwd)
+ROOT="$(cd $(dirname $0); pwd)"
 
 DOCKER_ROOT="${ROOT}/docker"
 
@@ -20,7 +20,7 @@ images=(
 for item in "${images[@]}";
 do
   # イメージ作成
-  buildImage ${item[@]}
+  buildImage "${item[@]}"
 done
 
 proxyDir="$(dirname ${ROOT})/proxy-network"
@@ -29,16 +29,16 @@ ls $proxyDir > /dev/null 2>&1
 
 if [ $? -ne 0 ];
 then
-  cd $(dirname ${ROOT})
+  cd "$(dirname ${ROOT})"
 
   git clone https://github.com/sayuprc/proxy-network.git
 
-  cd $proxyDir
+  cd "${proxyDir}"
 
   ./setup
 fi
 
-cd $ROOT
+cd "${ROOT}"
 
 srcDir="${ROOT}/src"
 
@@ -46,12 +46,12 @@ ls "${srcDir}/money-logger" > /dev/null 2>&1
 
 if [ $? -ne 0 ];
 then
-  cd $srcDir
+  cd "${srcDir}"
 
   git clone https://github.com/sayuprc/money-logger.git
 fi
 
-cd $ROOT
+cd "${ROOT}"
 
 if [ ! -f "${ROOT}/.env" ];
 then
